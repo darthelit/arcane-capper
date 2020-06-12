@@ -6,28 +6,13 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 /* Recoil */
-import { RecoilRoot, atom, selector, useRecoilState, useRecoilValue } from 'recoil';
-
-const textState = atom({
-  key: 'textState', // unique ID (with respect to other atoms/selectors)
-  default: 'Tyndi Tinkerings', // default value (aka initial value)
-});
+import { RecoilRoot, useRecoilState } from 'recoil';
+import { textState } from './Recoil/Atoms';
+import CharacterCount from './components/CharacterCount';
+import TodoList from './components/ToDo/TodoList';
 
 const Drawer = createDrawerNavigator();
 const Base = createStackNavigator();
-
-function CharacterCount() {
-  const count = useRecoilValue(charCountState);
-  return <Text>Character Count: {count} </Text>;
-}
-
-const charCountState = selector({
-  key: 'charCountState', // uniqueId ( with respect to other atoms/selectors)
-  get: ({ get }) => {
-    const text = get(textState);
-    return text.length;
-  },
-});
 
 function HomeScreen({ navigation }) {
   const [text, setText] = useRecoilState(textState);
@@ -113,6 +98,7 @@ function Home() {
     >
       <Drawer.Screen name='Home' component={HomeScreen} />
       <Drawer.Screen name='Notifications' component={NotificationsScreen} />
+      <Drawer.Screen name='Todo' component={TodoList} />
     </Drawer.Navigator>
   );
 }
