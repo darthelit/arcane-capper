@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, CheckBox, TextInput, View } from 'react-native';
+import { Button, TextInput, View } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 import { useRecoilState } from 'recoil';
 import { todoListState } from '../../Recoil/Atoms';
 
@@ -39,13 +40,13 @@ function TodoItem({ item }) {
   };
 
   return (
-    <View>
+    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
       <TextInput
-        style={{ minWidth: 300, textAlign: 'center', alignSelf: 'center' }}
+        style={{ height: 45, width: '50%', textAlign: 'center', alignSelf: 'center', backgroundColor: 'grey' }}
         value={item.text}
         onChangeText={editItemText}
       />
-      <CheckBox checked={item.isComplete} onPress={toggleItemCompletion} />
+      <CheckBox value={item.isComplete} onChange={toggleItemCompletion} />
       <Button title='X' onPress={deleteItem} />
     </View>
   );

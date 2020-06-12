@@ -25,16 +25,16 @@ function TodoItemCreator() {
     setInputValue('');
   };
 
-  const onChange = ({ target: { value } }) => {
+  const onChange = (value) => {
     setInputValue(value);
   };
 
   return (
-    <View>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <TextInput
         value={inputValue}
         onChangeText={onChange}
-        style={{ minWidth: 300, textAlign: 'center', alignSelf: 'center' }}
+        style={{ height: 45, minWidth: 300, textAlign: 'center', alignSelf: 'center', backgroundColor: 'green' }}
       />
       <Button title='Add' onPress={addItem} />
     </View>
