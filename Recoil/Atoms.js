@@ -15,6 +15,11 @@ const todoListFilterState = atom({
   default: 'Show All'
 });
 
-export { textState, todoListState, todoListFilterState };
+const pokemonState = atom({
+  key: 'pokemonState',
+  default: [],
+})
 
-export default { textState, todoListState, todoListFilterState };
+export { textState, todoListState, todoListFilterState, pokemonState };
+
+export default { textState, todoListState, todoListFilterState, pokemonState };

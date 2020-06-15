@@ -3,6 +3,7 @@ import { Button, TextInput, View } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import { useRecoilState } from 'recoil';
 import { todoListState } from '../../Recoil/Atoms';
+import { Row, Wrapper } from '../common';
 
 function replaceItemAtIndex(arr, index, newValue) {
   return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
@@ -40,15 +41,19 @@ function TodoItem({ item }) {
   };
 
   return (
-    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-      <TextInput
-        style={{ height: 45, width: '50%', textAlign: 'center', alignSelf: 'center', backgroundColor: 'grey' }}
-        value={item.text}
-        onChangeText={editItemText}
-      />
-      <CheckBox value={item.isComplete} onChange={toggleItemCompletion} />
-      <Button title='X' onPress={deleteItem} />
-    </View>
+    // <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+      <Wrapper style={{ alignItems: 'center', margin: 5 }}>
+        <Row>
+          <TextInput
+            style={{ height: 45, width: '50%', textAlign: 'center', alignSelf: 'center', backgroundColor: 'grey' }}
+            value={item.text}
+            onChangeText={editItemText}
+          />
+          <CheckBox value={item.isComplete} onChange={toggleItemCompletion} />
+          <Button title='X' onPress={deleteItem} />
+        </Row>
+      </Wrapper>
+    // </View>
   );
 }
 

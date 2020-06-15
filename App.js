@@ -4,12 +4,18 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Container, Wrapper } from './components/common';
+
+import { ApplicationProvider, Spinner } from '@ui-kitten/components';
+import * as eva from '@eva-design/eva';
 
 /* Recoil */
 import { RecoilRoot, useRecoilState } from 'recoil';
 import { textState } from './Recoil/Atoms';
 import CharacterCount from './components/CharacterCount';
 import TodoList from './components/ToDo/TodoList';
+
+import PokemonList from './components/Pokemon/PokemonList';
 
 const Drawer = createDrawerNavigator();
 const Base = createStackNavigator();
@@ -99,18 +105,35 @@ function Home() {
       <Drawer.Screen name='Home' component={HomeScreen} />
       <Drawer.Screen name='Notifications' component={NotificationsScreen} />
       <Drawer.Screen name='Todo' component={TodoList} />
+      <Drawer.Screen name="Pokemon" component={PokemonList} />
     </Drawer.Navigator>
   );
+}
+
+const Loader = (props) => {
+  return (
+    <Container>
+      <Wrapper style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <Spinner />
+      </Wrapper>
+    </Container>
+  )
 }
 
 export default function App() {
   return (
     <RecoilRoot>
-      <NavigationContainer>
-        <Base.Navigator headerMode='none'>
-          <Base.Screen name='Home' component={Home} />
-        </Base.Navigator>
-      </NavigationContainer>
+      <ApplicationProvider {...eva} theme={eva.dark}>
+        <React.Suspense fallback={<Loader />}>
+          <Container>
+          <NavigationContainer>
+            <Base.Navigator headerMode='none'>
+              <Base.Screen name='Home' component={Home} />
+            </Base.Navigator>
+          </NavigationContainer>
+          </Container>
+        </React.Suspense>
+      </ApplicationProvider>
     </RecoilRoot>
   );
 }

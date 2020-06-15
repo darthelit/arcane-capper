@@ -1,5 +1,7 @@
-import { selector } from 'recoil';
-import { textState, todoListFilterState, todoListState } from './Atoms';
+import { selector, selectorFamily } from 'recoil';
+import { textState, todoListFilterState, todoListState, pokemonState } from './Atoms';
+import { getAllPokemon } from '../api/PokeApi';
+import util from '../util';
 
 const charCountState = selector({
   key: 'charCountState', // uniqueId ( with respect to other atoms/selectors)
@@ -42,8 +44,21 @@ const todoListStatsState = selector({
       percentCompleted
     }
   }
-})
+});
 
-export { charCountState, filteredTodoListState, todoListStatsState };
+const pokemonListState = selector({
+  key: 'pokemonListState',
+  get: ({get}) => {
+    const pokemon = get(pokemonState);
+    if(util.isEmpty(pokemon)) {
+      const response  = getAllPokemon();
+      return response;
+    } else {
+      return pokemon;
+    }
+  }
+});
 
-export default { charCountState, filteredTodoListState, todoListStatsState };
+export { charCountState, filteredTodoListState, todoListStatsState, pokemonListState };
+
+export default { charCountState, filteredTodoListState, todoListStatsState, pokemonListState };
